@@ -1,0 +1,4 @@
+month,transactions,fraud_txns,fraud_loss_usd,fraud_rate_pct
+2024-01,2095,44,12941.66,2.1
+2024-02,1993,52,15358.82,2.61
+2024-03,2047,39,16389.96,1.91

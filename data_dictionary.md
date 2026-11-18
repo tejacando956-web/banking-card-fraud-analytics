@@ -25,9 +25,14 @@
 
 | File | Contents |
 |---|---|
-| kpi_summary.csv | Headline KPIs: volume, fraud rate (% and basis points), fraud loss $, average fraud vs legit ticket, online fraud share, chargeback proxy (count and $ at a 65% conversion assumption), rule-set flags / precision / recall, estimated loss prevented ($ and % of fraud loss). |
+| kpi_summary.csv | The 15 headline KPIs: transaction and fraud counts, fraud rate % (the same KPI is also quoted in basis points — 220 bps — in the README and dictionary), fraud loss $, average fraud vs legit ticket, online fraud share %, rule-set flags / precision / recall, estimated loss prevented ($ and % of fraud loss), overnight fraud share %, peak hour × channel fraud count, and foreign fraud rate %. Every KPI is defined, with its exact formula, in `KPI_DICTIONARY.md`. Supporting detail (home fraud rate, foreign share of fraud, amount-band rates, chargeback proxy at a 65% conversion assumption) lives in the breakdown CSVs below and `insights.md`. |
 | rule_performance.csv | Per-rule and combined flagged count, true positives, false positives, missed fraud, precision % and recall %. |
 | fraud_by_channel.csv | Transactions, fraud count, fraud loss $, fraud rate % and fraud share % per channel. |
+| fraud_by_hour_channel.csv | Fraud count for every hour of day (0–23) × channel (online, POS, ATM) — the source table behind the fraud heatmap. |
+| rule_cumulative.csv | Cumulative flagged count, true/false positives, precision % and recall % as the four rules are switched on one at a time in order (R1, +R2, +R3, +R4) — the source table behind the rule trade-off curve. The final row equals the combined rule set. |
+| fraud_by_month.csv | Transactions, fraud count, fraud rate % and fraud loss $ per calendar month (Q1 2024) — the source table behind the monthly trend chart. |
+| fraud_by_amount_band.csv | Transactions, fraud count, fraud loss $ and fraud rate % per transaction amount band ($0–10, $10–50, $50–100, $100–250, $250–500, $500+) — the source table behind the fraud-rate-by-amount chart. Bands are lower-bound inclusive: $0–10 means $0 up to but not including $10. |
+| fraud_by_origin.csv | Transactions, fraud count, fraud loss $, fraud rate % and fraud share % for foreign vs home transactions — the source table behind the foreign-vs-home chart. |
 | insights.md | Narrative findings and honest limitations. |
 
 ## Rule definitions (analysis.py)
