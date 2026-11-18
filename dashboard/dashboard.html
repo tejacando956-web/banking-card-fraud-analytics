@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Card Fraud Analytics — Dashboard</title>
+<style>
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f6f8fb;color:#1c2733}
+header{background:linear-gradient(120deg,#1f3a5f,#7b241c);color:#fff;padding:28px 20px;text-align:center}
+header h1{margin:0 0 4px;font-size:26px}header p{margin:2px 0;opacity:.92;font-size:14px}
+main{max-width:1060px;margin:0 auto;padding:22px 16px 50px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0}
+.kpi{background:#fff;border-radius:10px;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(31,58,95,.08)}
+.kpi b{display:block;font-size:21px;color:#c0392b}.kpi.blue b{color:#1f3a5f}.kpi.teal b{color:#0e7c7b}
+.kpi small{color:#5b6b7c}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:16px}
+.card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 10px rgba(31,58,95,.08)}
+.card h3{margin-top:0;color:#1f3a5f}.card img{width:100%;border-radius:8px;border:1px solid #e3ebf2}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:14px}
+th,td{padding:8px 10px;border-bottom:1px solid #e3ebf2;text-align:left}th{color:#1f3a5f}
+.note{color:#5b6b7c;font-size:13px}h2{color:#1f3a5f}
+</style></head><body>
+<header><h1>💳 Card Fraud Analytics — Fraud Command Center</h1>
+<p>Portfolio project · Synthetic data only · Rule-based detection, honestly evaluated</p></header>
+<main>
+<div class="kpis">
+<div class="kpi blue"><b>6,135</b><small>Total Transactions</small></div>
+<div class="kpi"><b>2.20% · 220 bps</b><small>Fraud Rate (135 fraud)</small></div>
+<div class="kpi"><b>$44,690</b><small>Total Fraud Loss</small></div>
+<div class="kpi"><b>$331 vs $90</b><small>Avg Fraud vs Legit Ticket</small></div>
+<div class="kpi"><b>92.6%</b><small>Fraud via Online (CNP)</small></div>
+<div class="kpi"><b>~88 · $29,049</b><small>Est. Chargebacks (65% proxy)</small></div>
+<div class="kpi teal"><b>44.73% / 78.52%</b><small>Rule Precision / Recall</small></div>
+<div class="kpi teal"><b>$41,916</b><small>Est. Loss Prevented (93.8%)</small></div>
+</div>
+
+<h2>Where the fraud hides</h2>
+<div class="grid">
+<section class="card"><h3>Fraud rate by channel</h3><img src="../images/fraud_by_channel.png" alt="Fraud rate by channel"></section>
+<section class="card"><h3>Fraud rate by hour</h3><img src="../images/fraud_by_hour.png" alt="Fraud rate by hour"></section>
+<section class="card"><h3>Fraud vs legitimate ticket sizes</h3><img src="../images/fraud_vs_legit_amounts.png" alt="Fraud vs legit amounts"></section>
+<section class="card"><h3>Fraud loss by merchant category</h3><img src="../images/fraud_by_category.png" alt="Fraud loss by category"></section>
+</div>
+
+<h2>Fraud by channel</h2>
+<table><tr><th>Channel</th><th>Transactions</th><th>Fraud</th><th>Fraud rate</th><th>Fraud loss</th><th>Share of fraud</th></tr>
+<tr><td>Online (card-not-present)</td><td>1,998</td><td>125</td><td>6.26%</td><td>$41,169.25</td><td>92.59%</td></tr>
+<tr><td>ATM</td><td>533</td><td>10</td><td>1.88%</td><td>$3,521.19</td><td>7.41%</td></tr>
+<tr><td>POS (card-present)</td><td>3,604</td><td>0</td><td>0.00%</td><td>$0.00</td><td>0.00%</td></tr></table>
+
+<h2>Rule performance — precision vs recall</h2>
+<table><tr><th>Rule</th><th>Flagged</th><th>True +</th><th>False +</th><th>Missed</th><th>Precision</th><th>Recall</th></tr>
+<tr><td>R1 Amount threshold by category</td><td>130</td><td>47</td><td>83</td><td>88</td><td>36.15%</td><td>34.81%</td></tr>
+<tr><td>R2 Online + foreign</td><td>89</td><td>65</td><td>24</td><td>70</td><td>73.03%</td><td>48.15%</td></tr>
+<tr><td>R3 Night window 00:00–04:59, &gt;$100</td><td>104</td><td>77</td><td>27</td><td>58</td><td>74.04%</td><td>57.04%</td></tr>
+<tr><td>R4 Velocity (3+ in 10 min per card)</td><td>2</td><td>2</td><td>0</td><td>133</td><td>100.00%</td><td>1.48%</td></tr>
+<tr><td><strong>Combined (any rule)</strong></td><td><strong>237</strong></td><td><strong>106</strong></td><td><strong>131</strong></td><td><strong>29</strong></td><td><strong>44.73%</strong></td><td><strong>78.52%</strong></td></tr></table>
+<p class="note">Reading this table is the real analyst skill: R4 almost never fires but is never wrong; R1 catches volume but interrupts 83 good customers. Rule tuning is a business trade-off between fraud loss prevented and customer friction — not a pure accuracy contest.</p>
+
+<h2>Key insights</h2>
+<ul>
+<li><strong>Fraud is a card-not-present problem:</strong> 92.6% of fraud is online, at a 6.26% fraud rate vs 0% at POS in this dataset.</li>
+<li><strong>Attacks cluster overnight:</strong> 83.7% of fraud lands between 00:00 and 04:59, when cardholders are asleep and slow to respond to alerts.</li>
+<li><strong>Big-ticket categories bleed most:</strong> e-commerce ($14,865), electronics ($13,284) and travel ($13,021) hold nearly all fraud loss.</li>
+<li><strong>The rule set prevents an estimated $41,916</strong> (93.8% of fraud dollars) because it catches the large tickets — while missing 29 smaller frauds.</li>
+<li><strong>Chargeback exposure:</strong> at a 65% conversion assumption, ~88 chargebacks costing ~$29,049 follow from the fraud that occurred.</li>
+</ul>
+<p class="note">Limitations: rule-based detection is transparent but static — it cannot learn new attack patterns and fraudsters adapt to fixed thresholds. Production issuers layer ML scoring on top of rules. Labels in real portfolios arrive weeks later via chargebacks and are noisy; here they are planted in synthetic data.</p>
+</main></body></html>

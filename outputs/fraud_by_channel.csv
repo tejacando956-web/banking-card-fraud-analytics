@@ -1,0 +1,4 @@
+channel,transactions,fraud_txns,fraud_loss_usd,fraud_rate_pct,fraud_share_pct
+ATM,533,10,3521.19,1.88,7.41
+POS,3604,0,0.0,0.0,0.0
+online,1998,125,41169.25,6.26,92.59

@@ -1,0 +1,6 @@
+rule,flagged,true_positives,false_positives,missed_fraud,precision_pct,recall_pct
+r1_amount,130,47,83,88,36.15,34.81
+r2_online_foreign,89,65,24,70,73.03,48.15
+r3_night,104,77,27,58,74.04,57.04
+r4_velocity,2,2,0,133,100.0,1.48
+ANY rule (combined),237,106,131,29,44.73,78.52
